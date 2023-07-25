@@ -1,6 +1,13 @@
+import lombok.Getter;
+
 public class Radio {
+    
+    @Getter
     private int currentChannel;
+
+    @Getter
     private int currentVolume;
+
     private int countChannel;
 
     public Radio() {
@@ -8,6 +15,7 @@ public class Radio {
     }
 
     public Radio(int countChannel) {
+
         if (countChannel < 0) {
             this.currentChannel = 0;
         } else {
@@ -42,19 +50,10 @@ public class Radio {
             currentVolume--;
     }
 
-
-    public int getCurrentChannel() {
-        return currentChannel;
-    }
-
     public void setCurrentChannel(int currentChannel) {
         if (currentChannel >= 0 && currentChannel <= getLast()) {
             this.currentChannel = currentChannel;
         }
-    }
-
-    public int getCurrentVolume() {
-        return currentVolume;
     }
 
     private int getLast() {
