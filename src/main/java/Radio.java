@@ -1,9 +1,23 @@
 public class Radio {
     private int currentChannel;
     private int currentVolume;
+    private int countChannel;
+
+    public Radio() {
+        countChannel = 10;
+    }
+
+    public Radio(int countChannel) {
+        if (countChannel < 0) {
+            this.currentChannel = 0;
+        } else {
+            this.countChannel = countChannel;
+        }
+
+    }
 
     public void next() {
-        if (currentChannel < 9) {
+        if (currentChannel < getLast()) {
             currentChannel++;
         } else {
             currentChannel = 0;
@@ -14,7 +28,7 @@ public class Radio {
         if (currentChannel > 0) {
             currentChannel--;
         } else {
-            currentChannel = 9;
+            currentChannel = getLast();
         }
     }
 
@@ -34,12 +48,20 @@ public class Radio {
     }
 
     public void setCurrentChannel(int currentChannel) {
-        if (currentChannel >= 0 && currentChannel <= 9) {
+        if (currentChannel >= 0 && currentChannel <= getLast()) {
             this.currentChannel = currentChannel;
         }
     }
 
     public int getCurrentVolume() {
         return currentVolume;
+    }
+
+    private int getLast() {
+        if (countChannel - 1 >= 0) {
+            return countChannel - 1;
+        } else {
+            return 0;
+        }
     }
 }
