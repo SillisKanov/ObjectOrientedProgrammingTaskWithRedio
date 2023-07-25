@@ -3,7 +3,8 @@ import org.junit.jupiter.api.Test;
 
 public class RadioTest {
 
-    private static Radio cond = new Radio();
+    private static int expected = 100;
+    private static Radio cond = new Radio(expected);
 
     @Test
     public void getAndSetCurrentRadioChanel() {
@@ -13,7 +14,7 @@ public class RadioTest {
         cond.setCurrentChannel(5);
         Assertions.assertEquals(5, cond.getCurrentChannel());
 
-        cond.setCurrentChannel(10);
+        cond.setCurrentChannel(expected);
         Assertions.assertEquals(5, cond.getCurrentChannel());
 
         cond.setCurrentChannel(-1);
@@ -51,7 +52,7 @@ public class RadioTest {
     }
 
     @Test
-    public void prevAndNextCurrentChannel() {
+    public void prevAndNextCurrentChannelMax() {
         cond.setCurrentChannel(0);
         cond.next();
         Assertions.assertEquals(1, cond.getCurrentChannel());
@@ -60,10 +61,27 @@ public class RadioTest {
         Assertions.assertEquals(0, cond.getCurrentChannel());
 
         cond.prev();
-        Assertions.assertEquals(9, cond.getCurrentChannel());
+        Assertions.assertEquals(expected - 1, cond.getCurrentChannel());
 
         cond.next();
         Assertions.assertEquals(0, cond.getCurrentChannel());
+    }
 
+    @Test
+    public void prevAndNextCurrentChannelMin() {
+        Radio cond = new Radio( -1);
+
+        cond.setCurrentChannel(0);
+        cond.next();
+        Assertions.assertEquals(0, cond.getCurrentChannel());
+
+        cond.prev();
+        Assertions.assertEquals(0, cond.getCurrentChannel());
+
+        cond.prev();
+        Assertions.assertEquals(0, cond.getCurrentChannel());
+
+        cond.next();
+        Assertions.assertEquals(0, cond.getCurrentChannel());
     }
 }
